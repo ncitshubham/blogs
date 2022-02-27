@@ -1,0 +1,882 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="twitter:card" content="summary_large_image" /><!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Scraping Data Science Jobs on in.indeed.com | Shubham Saini</title>
+<meta name="generator" content="Jekyll v4.1.1" />
+<meta property="og:title" content="Scraping Data Science Jobs on in.indeed.com" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Projects" />
+<meta property="og:description" content="Projects" />
+<link rel="canonical" href="https://ncitshubham.github.io/blogs/2021/11/09/scraping-indeed.com-for-data-science-jobs-Copy.html" />
+<meta property="og:url" content="https://ncitshubham.github.io/blogs/2021/11/09/scraping-indeed.com-for-data-science-jobs-Copy.html" />
+<meta property="og:site_name" content="Shubham Saini" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2021-11-09T00:00:00-06:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Scraping Data Science Jobs on in.indeed.com" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2021-11-09T00:00:00-06:00","datePublished":"2021-11-09T00:00:00-06:00","description":"Projects","headline":"Scraping Data Science Jobs on in.indeed.com","mainEntityOfPage":{"@type":"WebPage","@id":"https://ncitshubham.github.io/blogs/2021/11/09/scraping-indeed.com-for-data-science-jobs-Copy.html"},"url":"https://ncitshubham.github.io/blogs/2021/11/09/scraping-indeed.com-for-data-science-jobs-Copy.html"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/blogs/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="https://ncitshubham.github.io/blogs/feed.xml" title="Shubham Saini" /><link rel="shortcut icon" type="image/x-icon" href="/blogs/images/favicon.ico"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Primer/15.2.0/primer.css" integrity="sha512-xTz2ys4coGAOz8vuV1NcQBkgVmKhsSEtjbqyMJbBHRplFuvKIUo6xhLHpAyPt9mfR6twHJgn9OgVLuqOvjeBhg==" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog==" crossorigin="anonymous" />
+
+<script>
+function wrap_img(fn) {
+    if (document.attachEvent ? document.readyState === "complete" : document.readyState !== "loading") {
+        var elements = document.querySelectorAll(".post img");
+        Array.prototype.forEach.call(elements, function(el, i) {
+            if (el.getAttribute("title") && (el.className != "emoji")) {
+                const caption = document.createElement('figcaption');
+                var node = document.createTextNode(el.getAttribute("title"));
+                caption.appendChild(node);
+                const wrapper = document.createElement('figure');
+                wrapper.className = 'image';
+                el.parentNode.insertBefore(wrapper, el);
+                el.parentNode.removeChild(el);
+                wrapper.appendChild(el);
+                wrapper.appendChild(caption);
+            }
+        });
+    } else { document.addEventListener('DOMContentLoaded', fn); }
+}
+window.onload = wrap_img;
+</script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function(){
+    // add link icon to anchor tags
+    var elem = document.querySelectorAll(".anchor-link")
+    elem.forEach(e => (e.innerHTML = '<i class="fas fa-link fa-xs"></i>'));
+    });
+</script>
+</head>
+<body><header class="site-header">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/blogs/">Shubham Saini</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/blogs/about/">About Me</a><a class="page-link" href="/blogs/search/">Search</a><a class="page-link" href="/blogs/categories/">Tags</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">Scraping Data Science Jobs on in.indeed.com</h1><p class="post-meta post-meta-title"><time class="dt-published" datetime="2021-11-09T00:00:00-06:00" itemprop="datePublished">
+        Nov 9, 2021
+      </time>
+       • <span class="read-time" title="Estimated read time">
+    
+    
+      4 min read
+    
+</span></p>
+
+    
+
+    
+      
+        <div class="pb-5 d-flex flex-justify-center">
+          <div class="px-2">
+
+    <a href="https://github.com/ncitshubham/blogs/tree/master/_notebooks/2021-11-09-scraping-indeed.com-for-data-science-jobs - Copy.ipynb" role="button" target="_blank">
+<img class="notebook-badge-image" src="/blogs/assets/badges/github.svg" alt="View On GitHub">
+    </a>
+</div>
+
+          <div class="px-2">
+    <a href="https://mybinder.org/v2/gh/ncitshubham/blogs/master?filepath=_notebooks%2F2021-11-09-scraping-indeed.com-for-data-science-jobs+-+Copy.ipynb" target="_blank">
+        <img class="notebook-badge-image" src="/blogs/assets/badges/binder.svg" alt="Open In Binder"/>
+    </a>
+</div>
+
+          <div class="px-2">
+    <a href="https://colab.research.google.com/github/ncitshubham/blogs/blob/master/_notebooks/2021-11-09-scraping-indeed.com-for-data-science-jobs - Copy.ipynb" target="_blank">
+        <img class="notebook-badge-image" src="/blogs/assets/badges/colab.svg" alt="Open In Colab"/>
+    </a>
+</div>
+          <div class="px-2">
+  <a href="https://deepnote.com/launch?url=https%3A%2F%2Fgithub.com%2Fncitshubham%2Fblogs%2Fblob%2Fmaster%2F_notebooks%2F2021-11-09-scraping-indeed.com-for-data-science-jobs+-+Copy.ipynb" target="_blank">
+      <img class="notebook-badge-image" src="/blogs/assets/badges/deepnote.svg" alt="Launch in Deepnote"/>
+  </a>
+</div>
+
+        </div>
+      </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <!--
+#################################################
+### THIS FILE WAS AUTOGENERATED! DO NOT EDIT! ###
+#################################################
+# file to edit: _notebooks/2021-11-09-scraping-indeed.com-for-data-science-jobs - Copy.ipynb
+-->
+
+<div class="container" id="notebook-container">
+        
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Indeed.com is a worldwide employment website for job listings. Globally, it hosts millions of job listings on thousands of jobs. In this project, we are interested in the 'Data Science' related job listings on <a href="https://in.indeed.com/">https://in.indeed.com/</a> . Thus, we'll scrape the website for this information and save that to a csv file for future use. In order to do this, we'll use the following tools:</p>
+<ul>
+<li>Python as the programming language</li>
+<li>Requests library for downloading the webpage contents</li>
+<li>BeautifulSoup library for finding and accessing the relevant information from the downloaded webpage.</li>
+<li>Numpy library for handling missing values.</li>
+<li>Pandas library for saving the accessed information to a csv file.</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Here are the steps we'll follow:</p>
+<ul>
+<li>We'll scrape first 10 pages from <a href="https://in.indeed.com/jobs?q=data%20science">https://in.indeed.com/jobs?q=data%20science</a></li>
+<li>We'll get a list of all 15 jobs on each page.</li>
+<li>For each job, we'll grab the Job Title, Salary, Location, Company Name, and Company Rating.</li>
+<li><p>We'll save all of the information in a csv file in the following format:</p>
+
+<pre><code>Title,Salary,Location,Company Name,Company Rating
+Data science,"₹35,000 - ₹45,000 a month","Mumbai, Maharashtra",V Digitech Sevices
+Data Science ( 2 - 8 Yrs) - Remote,"₹8,00,000 - ₹20,00,000 a year",Remote,ProGrad
+Data Science Internship,"₹10,000 a month","Gurgaon, Haryana",Zigram</code></pre>
+</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Initial-Setup">Initial Setup<a class="anchor-link" href="#Initial-Setup"> </a></h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Import the required libraries</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">requests</span>
+<span class="kn">from</span> <span class="nn">bs4</span> <span class="kn">import</span> <span class="n">BeautifulSoup</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">from</span> <span class="nn">numpy</span> <span class="kn">import</span> <span class="n">nan</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Set up base URL and the user-agent.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># The start value in the base_url will increment by 10 to access each following page.</span>
+
+<span class="n">base_url</span> <span class="o">=</span> <span class="s2">&quot;https://in.indeed.com/jobs?q=data</span><span class="si">%20s</span><span class="s2">cience&amp;start=</span><span class="si">{}</span><span class="s2">&quot;</span>
+
+<span class="n">header</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;User-Agent&quot;</span><span class="p">:</span> <span class="s2">&quot;Mozilla/5.0&quot;</span><span class="p">}</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Create a dictionary to save all information.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">jobs</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;Job Title&quot;</span><span class="p">:</span> <span class="p">[],</span>
+        <span class="s2">&quot;Salary&quot;</span><span class="p">:</span> <span class="p">[],</span>
+        <span class="s2">&quot;Location&quot;</span><span class="p">:</span> <span class="p">[],</span>
+        <span class="s2">&quot;Company Name&quot;</span><span class="p">:</span> <span class="p">[],</span>
+        <span class="s2">&quot;Company Rating&quot;</span><span class="p">:</span> <span class="p">[]}</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Scrape-the-search-result-webpage.">Scrape the search result webpage.<a class="anchor-link" href="#Scrape-the-search-result-webpage."> </a></h2><h4 id="Download-webpage-and-create-a-BeautifulSoup-object">Download webpage and create a BeautifulSoup object<a class="anchor-link" href="#Download-webpage-and-create-a-BeautifulSoup-object"> </a></h4>
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">get_soup</span><span class="p">(</span><span class="n">url</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    This function will download the webpage for the url supplied as argument</span>
+<span class="sd">    and return the BeautifulSoup object for the webpage which can be used to </span>
+<span class="sd">    grab required information for the webpage.</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="s2">&quot;html.parser&quot;</span><span class="p">,</span> <span class="n">headers</span> <span class="o">=</span> <span class="n">header</span><span class="p">)</span>
+    
+    <span class="k">if</span> <span class="n">response</span><span class="o">.</span><span class="n">status_code</span> <span class="o">!=</span> <span class="mi">200</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s1">&#39;Failed to load page </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">url</span><span class="p">))</span>
+        
+    <span class="n">soup</span> <span class="o">=</span> <span class="n">BeautifulSoup</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">text</span><span class="p">)</span>
+    
+    <span class="k">return</span> <span class="n">soup</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Example for <code>get_soup</code></p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">soup</span> <span class="o">=</span> <span class="n">get_soup</span><span class="p">(</span><span class="n">base_url</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="mi">10</span><span class="p">))</span>
+<span class="nb">type</span><span class="p">(</span><span class="n">soup</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>bs4.BeautifulSoup</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="Create-a-transform-function">Create a transform function<a class="anchor-link" href="#Create-a-transform-function"> </a></h4><p>Now, we'll create a transform function to grab the list of jobs from the result webpage.</p>
+<p>To do this, we'll pick <code>td</code> tags with the class: <code>resultContent</code></p>
+<p><img src="https://i.imgur.com/8MXbGpC.png" alt="" /></p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">transform</span><span class="p">(</span><span class="n">soup</span><span class="p">):</span>
+    <span class="c1"># find all the job listings on the webpage.</span>
+    <span class="n">jobs_tags</span> <span class="o">=</span> <span class="n">soup</span><span class="o">.</span><span class="n">find_all</span><span class="p">(</span><span class="s2">&quot;td&quot;</span><span class="p">,</span> <span class="n">class_</span> <span class="o">=</span> <span class="s2">&quot;resultContent&quot;</span><span class="p">)</span>
+    
+    <span class="c1"># for each job, call helper functions to grab information about the job</span>
+    <span class="c1"># and save that to jobs dictionary.</span>
+    <span class="k">for</span> <span class="n">job</span> <span class="ow">in</span> <span class="n">jobs_tags</span><span class="p">:</span>
+        <span class="n">jobs</span><span class="p">[</span><span class="s2">&quot;Job Title&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">get_job_title</span><span class="p">(</span><span class="n">job</span><span class="p">))</span>
+        <span class="n">jobs</span><span class="p">[</span><span class="s2">&quot;Salary&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">get_job_salary</span><span class="p">(</span><span class="n">job</span><span class="p">))</span>
+        <span class="n">jobs</span><span class="p">[</span><span class="s2">&quot;Location&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">get_company_location</span><span class="p">(</span><span class="n">job</span><span class="p">))</span>
+        <span class="n">jobs</span><span class="p">[</span><span class="s2">&quot;Company Name&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">get_company_name</span><span class="p">(</span><span class="n">job</span><span class="p">))</span>
+        <span class="n">jobs</span><span class="p">[</span><span class="s2">&quot;Company Rating&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">get_company_rating</span><span class="p">(</span><span class="n">job</span><span class="p">))</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Example for finding the job tags</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">job_tags</span> <span class="o">=</span> <span class="n">soup</span><span class="o">.</span><span class="n">find_all</span><span class="p">(</span><span class="s2">&quot;td&quot;</span><span class="p">,</span> <span class="n">class_</span> <span class="o">=</span> <span class="s2">&quot;resultContent&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">job_tags</span><span class="p">))</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>15
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">job_tags</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">text</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>newData Scientist IIMasterCard4.1Gurgaon, Haryana
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Create-helper-functions">Create helper functions<a class="anchor-link" href="#Create-helper-functions"> </a></h3><p>Create helper functions to grab job information for each job and store that in the jobs dictionary.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>First grab Job Title.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">get_job_title</span><span class="p">(</span><span class="n">job</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Function to grab the job title.</span>
+<span class="sd">    Because some job titles have a prefix new in their job titles,</span>
+<span class="sd">    this function will automatically detect this prefix and return</span>
+<span class="sd">    the title sans &#39;new&#39; in the job title.</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="n">title</span> <span class="o">=</span> <span class="n">job</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">class_</span> <span class="o">=</span> <span class="s2">&quot;jobTitle&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">text</span>
+    <span class="k">if</span> <span class="n">title</span><span class="p">[:</span><span class="mi">3</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;new&quot;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">title</span><span class="p">[</span><span class="mi">3</span><span class="p">:]</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">title</span>
+    
+<span class="n">get_job_title</span><span class="p">(</span><span class="n">job_tags</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>&#39;Data Scientist II&#39;</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Now, we'll grab the job salary, if the listing has one.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">get_job_salary</span><span class="p">(</span><span class="n">job</span><span class="p">):</span>
+    
+    <span class="n">salary</span> <span class="o">=</span> <span class="n">job</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s2">&quot;div&quot;</span><span class="p">,</span> <span class="n">class_</span> <span class="o">=</span> <span class="s2">&quot;salary-snippet&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">salary</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">salary</span><span class="o">.</span><span class="n">text</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">nan</span>
+    
+<span class="n">get_job_salary</span><span class="p">(</span><span class="n">job_tags</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>nan</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Similarly, we'll grab the company name, location, and its rating.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">get_company_name</span><span class="p">(</span><span class="n">job</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Returns the company name for the supp&#39;&#39;&#39;</span>
+    <span class="k">return</span> <span class="n">job</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">class_</span> <span class="o">=</span> <span class="s2">&quot;companyName&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">text</span>
+
+    
+<span class="k">def</span> <span class="nf">get_company_location</span><span class="p">(</span><span class="n">job</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Returns the company location for the supplied job tag</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="k">return</span> <span class="n">job</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">class_</span> <span class="o">=</span> <span class="s2">&quot;companyLocation&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">text</span>
+
+
+<span class="k">def</span> <span class="nf">get_company_rating</span><span class="p">(</span><span class="n">job</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Returns the company rating for the supplied job tag</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="n">rating</span> <span class="o">=</span> <span class="n">job</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">class_</span> <span class="o">=</span> <span class="s2">&quot;ratingNumber&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">rating</span><span class="p">:</span>
+        <span class="k">return</span> <span class="nb">float</span><span class="p">(</span><span class="n">rating</span><span class="o">.</span><span class="n">text</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">nan</span>
+
+
+<span class="nb">print</span><span class="p">(</span><span class="n">get_company_name</span><span class="p">(</span><span class="n">job_tags</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span> 
+      <span class="n">get_company_location</span><span class="p">(</span><span class="n">job_tags</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span> 
+      <span class="n">get_company_rating</span><span class="p">(</span><span class="n">job_tags</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span>
+     <span class="n">sep</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>MasterCard
+Gurgaon, Haryana
+4.1
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Putting-it-all-together">Putting it all together<a class="anchor-link" href="#Putting-it-all-together"> </a></h3><p>We'll use a <code>for loop</code> to loop through 10 search result pages. Within this loop, we can apply the <code>get_soup</code> function to download these pages and the <code>transform</code> function to parse through all job listings from these pages and save the information in the <code>jobs</code> dictionary.
+We'll then use this dictionary to create a pandas DataFrame, which can then be saved to a csv file.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">for</span> <span class="n">page</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">110</span><span class="p">,</span> <span class="mi">10</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Scraping page </span><span class="si">{</span><span class="n">page</span><span class="si">}</span><span class="s2">...&quot;</span><span class="p">)</span>
+    <span class="n">soup</span> <span class="o">=</span> <span class="n">get_soup</span><span class="p">(</span><span class="n">base_url</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">page</span><span class="p">))</span>
+    <span class="n">transform</span><span class="p">(</span><span class="n">soup</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Scraping page 0...
+Scraping page 10...
+Scraping page 20...
+Scraping page 30...
+Scraping page 40...
+Scraping page 50...
+Scraping page 60...
+Scraping page 70...
+Scraping page 80...
+Scraping page 90...
+Scraping page 100...
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">jobs_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">jobs</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">jobs_df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Job Title</th>
+      <th>Salary</th>
+      <th>Location</th>
+      <th>Company Name</th>
+      <th>Company Rating</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>Analyst-Data Science</td>
+      <td>NaN</td>
+      <td>Bengaluru, Karnataka+1 location</td>
+      <td>Amex</td>
+      <td>4.1</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>Data Science</td>
+      <td>₹12,00,000 - ₹18,00,000 a year</td>
+      <td>Bengaluru, Karnataka</td>
+      <td>Onward Group</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>Data Scientist - ML</td>
+      <td>NaN</td>
+      <td>Bengaluru, Karnataka</td>
+      <td>JPMorgan Chase Bank, N.A.</td>
+      <td>3.9</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>Data Scientist</td>
+      <td>NaN</td>
+      <td>Pune, Maharashtra+1 location</td>
+      <td>Maersk</td>
+      <td>4.1</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>Data Engineer</td>
+      <td>NaN</td>
+      <td>Gurgaon, Haryana+3 locations</td>
+      <td>NatWest Group</td>
+      <td>3.3</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">jobs_df</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s2">&quot;Data_Science_jobs_from_indeed.com.csv&quot;</span><span class="p">,</span> <span class="n">index</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">encoding</span> <span class="o">=</span> <span class="s2">&quot;utf-8&quot;</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">!</span>pip install jovian --upgrade --quiet
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">jovian</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">jovian</span><span class="o">.</span><span class="n">commit</span><span class="p">(</span><span class="n">project</span><span class="o">=</span><span class="s2">&quot;scraping-in-indeed-com-for-data-science-jobs&quot;</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+</div>
+
+
+
+  </div><a class="u-url" href="/blogs/2021/11/09/scraping-indeed.com-for-data-science-jobs-Copy.html" hidden></a>
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/blogs/"></data>
+
+  <div class="wrapper">
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col">
+        <p class="feed-subscribe">
+          <a href="/blogs/feed.xml">
+            <svg class="svg-icon orange">
+              <use xlink:href="/blogs/assets/minima-social-icons.svg#rss"></use>
+            </svg><span>Subscribe</span>
+          </a>
+        </p>
+      </div>
+      <div class="footer-col">
+        <p>Projects</p>
+      </div>
+    </div>
+
+    <div class="social-links"><ul class="social-media-list"><li><a rel="me" href="https://github.com/ncithshubham" target="_blank" title="ncithshubham"><svg class="svg-icon grey"><use xlink:href="/blogs/assets/minima-social-icons.svg#github"></use></svg></a></li><li><a rel="me" href="https://twitter.com/ncitshubham" target="_blank" title="ncitshubham"><svg class="svg-icon grey"><use xlink:href="/blogs/assets/minima-social-icons.svg#twitter"></use></svg></a></li></ul>
+</div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>
