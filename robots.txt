@@ -1,1 +1,1 @@
-Sitemap: /sitemap.xml
+Sitemap: https://ncitshubham.github.io/sitemap.xml
