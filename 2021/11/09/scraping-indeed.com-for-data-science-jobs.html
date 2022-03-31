@@ -10,8 +10,6 @@
 <meta property="og:locale" content="en_US" />
 <meta name="description" content="Projects" />
 <meta property="og:description" content="Projects" />
-<link rel="canonical" href="https://ncitshubham.github.io/blogs/2021/11/09/scraping-indeed.com-for-data-science-jobs.html" />
-<meta property="og:url" content="https://ncitshubham.github.io/blogs/2021/11/09/scraping-indeed.com-for-data-science-jobs.html" />
 <meta property="og:site_name" content="Shubham Saini" />
 <meta property="og:image" content="https://i.imgur.com/6zM7JBq.png" />
 <meta property="og:type" content="article" />
@@ -20,9 +18,9 @@
 <meta property="twitter:image" content="https://i.imgur.com/6zM7JBq.png" />
 <meta property="twitter:title" content="Scraping Data Science Jobs on in.indeed.com" />
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2021-11-09T00:00:00-06:00","datePublished":"2021-11-09T00:00:00-06:00","description":"Projects","headline":"Scraping Data Science Jobs on in.indeed.com","image":"https://i.imgur.com/6zM7JBq.png","mainEntityOfPage":{"@type":"WebPage","@id":"https://ncitshubham.github.io/blogs/2021/11/09/scraping-indeed.com-for-data-science-jobs.html"},"url":"https://ncitshubham.github.io/blogs/2021/11/09/scraping-indeed.com-for-data-science-jobs.html"}</script>
+{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2021-11-09T00:00:00-06:00","datePublished":"2021-11-09T00:00:00-06:00","description":"Projects","headline":"Scraping Data Science Jobs on in.indeed.com","image":"https://i.imgur.com/6zM7JBq.png","mainEntityOfPage":{"@type":"WebPage","@id":"/2021/11/09/scraping-indeed.com-for-data-science-jobs.html"},"url":"/2021/11/09/scraping-indeed.com-for-data-science-jobs.html"}</script>
 <!-- End Jekyll SEO tag -->
-<link rel="stylesheet" href="/blogs/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="https://ncitshubham.github.io/blogs/feed.xml" title="Shubham Saini" /><link rel="shortcut icon" type="image/x-icon" href="/blogs/images/favicon.ico"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Primer/15.2.0/primer.css" integrity="sha512-xTz2ys4coGAOz8vuV1NcQBkgVmKhsSEtjbqyMJbBHRplFuvKIUo6xhLHpAyPt9mfR6twHJgn9OgVLuqOvjeBhg==" crossorigin="anonymous" />
+<link rel="stylesheet" href="/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="/feed.xml" title="Shubham Saini" /><link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Primer/15.2.0/primer.css" integrity="sha512-xTz2ys4coGAOz8vuV1NcQBkgVmKhsSEtjbqyMJbBHRplFuvKIUo6xhLHpAyPt9mfR6twHJgn9OgVLuqOvjeBhg==" crossorigin="anonymous" />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog==" crossorigin="anonymous" />
 
 <script>
@@ -57,7 +55,7 @@ window.onload = wrap_img;
 </head>
 <body><header class="site-header">
 
-  <div class="wrapper"><a class="site-title" rel="author" href="/blogs/">Shubham Saini</a><nav class="site-nav">
+  <div class="wrapper"><a class="site-title" rel="author" href="/">Shubham Saini</a><nav class="site-nav">
         <input type="checkbox" id="nav-trigger" class="nav-trigger" />
         <label for="nav-trigger">
           <span class="menu-icon">
@@ -67,7 +65,7 @@ window.onload = wrap_img;
           </span>
         </label>
 
-        <div class="trigger"><a class="page-link" href="/blogs/about/">About Me</a><a class="page-link" href="/blogs/search/">Search</a><a class="page-link" href="/blogs/categories/">Tags</a></div>
+        <div class="trigger"><a class="page-link" href="/about/">About Me</a><a class="page-link" href="/search/">Search</a><a class="page-link" href="/categories/">Tags</a></div>
       </nav></div>
 </header>
 <main class="page-content" aria-label="Content">
@@ -90,27 +88,21 @@ window.onload = wrap_img;
     
       
         <div class="pb-5 d-flex flex-justify-center">
+          
           <div class="px-2">
-
-    <a href="https://github.com/ncitshubham/blogs/tree/master/_notebooks/2021-11-09-scraping-indeed.com-for-data-science-jobs.ipynb" role="button" target="_blank">
-<img class="notebook-badge-image" src="/blogs/assets/badges/github.svg" alt="View On GitHub">
+    <a href="https://mybinder.org/v2/gh///master?filepath=_notebooks%2F2021-11-09-scraping-indeed.com-for-data-science-jobs.ipynb" target="_blank">
+        <img class="notebook-badge-image" src="/assets/badges/binder.svg" alt="Open In Binder"/>
     </a>
 </div>
 
           <div class="px-2">
-    <a href="https://mybinder.org/v2/gh/ncitshubham/blogs/master?filepath=_notebooks%2F2021-11-09-scraping-indeed.com-for-data-science-jobs.ipynb" target="_blank">
-        <img class="notebook-badge-image" src="/blogs/assets/badges/binder.svg" alt="Open In Binder"/>
-    </a>
-</div>
-
-          <div class="px-2">
-    <a href="https://colab.research.google.com/github/ncitshubham/blogs/blob/master/_notebooks/2021-11-09-scraping-indeed.com-for-data-science-jobs.ipynb" target="_blank">
-        <img class="notebook-badge-image" src="/blogs/assets/badges/colab.svg" alt="Open In Colab"/>
+    <a href="https://colab.research.google.com/github///blob/master/_notebooks/2021-11-09-scraping-indeed.com-for-data-science-jobs.ipynb" target="_blank">
+        <img class="notebook-badge-image" src="/assets/badges/colab.svg" alt="Open In Colab"/>
     </a>
 </div>
           <div class="px-2">
-  <a href="https://deepnote.com/launch?url=https%3A%2F%2Fgithub.com%2Fncitshubham%2Fblogs%2Fblob%2Fmaster%2F_notebooks%2F2021-11-09-scraping-indeed.com-for-data-science-jobs.ipynb" target="_blank">
-      <img class="notebook-badge-image" src="/blogs/assets/badges/deepnote.svg" alt="Launch in Deepnote"/>
+  <a href="https://deepnote.com/launch?url=https%3A%2F%2Fgithub.com%2F%2F%2Fblob%2Fmaster%2F_notebooks%2F2021-11-09-scraping-indeed.com-for-data-science-jobs.ipynb" target="_blank">
+      <img class="notebook-badge-image" src="/assets/badges/deepnote.svg" alt="Launch in Deepnote"/>
   </a>
 </div>
 
@@ -876,27 +868,27 @@ Scraping page 300...
 
   </div><!-- from https://github.com/utterance/utterances -->
 <script src="https://utteranc.es/client.js"
-        repo="ncitshubham/blogs"
+        repo="/"
         issue-term="title"
         label="blogpost-comment"
         theme="github-light"
         crossorigin="anonymous"
         async>
-</script><a class="u-url" href="/blogs/2021/11/09/scraping-indeed.com-for-data-science-jobs.html" hidden></a>
+</script><a class="u-url" href="/2021/11/09/scraping-indeed.com-for-data-science-jobs.html" hidden></a>
 </article>
 
       </div>
     </main><footer class="site-footer h-card">
-  <data class="u-url" href="/blogs/"></data>
+  <data class="u-url" href="/"></data>
 
   <div class="wrapper">
 
     <div class="footer-col-wrapper">
       <div class="footer-col">
         <p class="feed-subscribe">
-          <a href="/blogs/feed.xml">
+          <a href="/feed.xml">
             <svg class="svg-icon orange">
-              <use xlink:href="/blogs/assets/minima-social-icons.svg#rss"></use>
+              <use xlink:href="/assets/minima-social-icons.svg#rss"></use>
             </svg><span>Subscribe</span>
           </a>
         </p>
@@ -906,7 +898,7 @@ Scraping page 300...
       </div>
     </div>
 
-    <div class="social-links"><ul class="social-media-list"><li><a rel="me" href="https://github.com/ncithshubham" target="_blank" title="ncithshubham"><svg class="svg-icon grey"><use xlink:href="/blogs/assets/minima-social-icons.svg#github"></use></svg></a></li><li><a rel="me" href="https://twitter.com/ncitshubham" target="_blank" title="ncitshubham"><svg class="svg-icon grey"><use xlink:href="/blogs/assets/minima-social-icons.svg#twitter"></use></svg></a></li></ul>
+    <div class="social-links"><ul class="social-media-list"><li><a rel="me" href="https://twitter.com/ncitshubham" target="_blank" title="ncitshubham"><svg class="svg-icon grey"><use xlink:href="/assets/minima-social-icons.svg#twitter"></use></svg></a></li></ul>
 </div>
 
   </div>
