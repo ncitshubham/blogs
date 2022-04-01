@@ -1,0 +1,1515 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="twitter:card" content="summary_large_image" /><!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Scraping Top Repositories for Topics on GitHub | Shubham Saini</title>
+<meta name="generator" content="Jekyll v4.1.1" />
+<meta property="og:title" content="Scraping Top Repositories for Topics on GitHub" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Projects" />
+<meta property="og:description" content="Projects" />
+<link rel="canonical" href="https://ncitshubham.github.io/blogs/2021/08/29/Scrape_GitHub_topic_repos.html" />
+<meta property="og:url" content="https://ncitshubham.github.io/blogs/2021/08/29/Scrape_GitHub_topic_repos.html" />
+<meta property="og:site_name" content="Shubham Saini" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2021-08-29T00:00:00-05:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Scraping Top Repositories for Topics on GitHub" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2021-08-29T00:00:00-05:00","datePublished":"2021-08-29T00:00:00-05:00","description":"Projects","headline":"Scraping Top Repositories for Topics on GitHub","mainEntityOfPage":{"@type":"WebPage","@id":"https://ncitshubham.github.io/blogs/2021/08/29/Scrape_GitHub_topic_repos.html"},"url":"https://ncitshubham.github.io/blogs/2021/08/29/Scrape_GitHub_topic_repos.html"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/blogs/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="https://ncitshubham.github.io/blogs/feed.xml" title="Shubham Saini" /><link rel="shortcut icon" type="image/x-icon" href="/blogs/images/favicon.ico"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Primer/15.2.0/primer.css" integrity="sha512-xTz2ys4coGAOz8vuV1NcQBkgVmKhsSEtjbqyMJbBHRplFuvKIUo6xhLHpAyPt9mfR6twHJgn9OgVLuqOvjeBhg==" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog==" crossorigin="anonymous" />
+
+<script>
+function wrap_img(fn) {
+    if (document.attachEvent ? document.readyState === "complete" : document.readyState !== "loading") {
+        var elements = document.querySelectorAll(".post img");
+        Array.prototype.forEach.call(elements, function(el, i) {
+            if (el.getAttribute("title") && (el.className != "emoji")) {
+                const caption = document.createElement('figcaption');
+                var node = document.createTextNode(el.getAttribute("title"));
+                caption.appendChild(node);
+                const wrapper = document.createElement('figure');
+                wrapper.className = 'image';
+                el.parentNode.insertBefore(wrapper, el);
+                el.parentNode.removeChild(el);
+                wrapper.appendChild(el);
+                wrapper.appendChild(caption);
+            }
+        });
+    } else { document.addEventListener('DOMContentLoaded', fn); }
+}
+window.onload = wrap_img;
+</script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function(){
+    // add link icon to anchor tags
+    var elem = document.querySelectorAll(".anchor-link")
+    elem.forEach(e => (e.innerHTML = '<i class="fas fa-link fa-xs"></i>'));
+    });
+</script>
+</head>
+<body><header class="site-header">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/blogs/">Shubham Saini</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/blogs/about/">About Me</a><a class="page-link" href="/blogs/search/">Search</a><a class="page-link" href="/blogs/categories/">Tags</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">Scraping Top Repositories for Topics on GitHub</h1><p class="post-meta post-meta-title"><time class="dt-published" datetime="2021-08-29T00:00:00-05:00" itemprop="datePublished">
+        Aug 29, 2021
+      </time>
+       • <span class="read-time" title="Estimated read time">
+    
+    
+      9 min read
+    
+</span></p>
+
+    
+
+    
+      
+        <div class="pb-5 d-flex flex-justify-center">
+          
+          <div class="px-2">
+    <a href="https://mybinder.org/v2/gh/ncitshubham/blogs/master?filepath=_notebooks%2F2021-08-29-Scrape_GitHub_topic_repos.ipynb" target="_blank">
+        <img class="notebook-badge-image" src="/blogs/assets/badges/binder.svg" alt="Open In Binder"/>
+    </a>
+</div>
+
+          <div class="px-2">
+    <a href="https://colab.research.google.com/github/ncitshubham/blogs/blob/master/_notebooks/2021-08-29-Scrape_GitHub_topic_repos.ipynb" target="_blank">
+        <img class="notebook-badge-image" src="/blogs/assets/badges/colab.svg" alt="Open In Colab"/>
+    </a>
+</div>
+          <div class="px-2">
+  <a href="https://deepnote.com/launch?url=https%3A%2F%2Fgithub.com%2Fncitshubham%2Fblogs%2Fblob%2Fmaster%2F_notebooks%2F2021-08-29-Scrape_GitHub_topic_repos.ipynb" target="_blank">
+      <img class="notebook-badge-image" src="/blogs/assets/badges/deepnote.svg" alt="Launch in Deepnote"/>
+  </a>
+</div>
+
+        </div>
+      </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <ul id="toc" class="section-nav">
+<li class="toc-entry toc-h1"><a href="#Setup">Setup </a>
+<ul>
+<li class="toc-entry toc-h2"><a href="#Scrape-the-list-of-topics.">Scrape the list of topics. </a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#Download-the-topics-webpage-and-create-a-BeautifulSoup-object">Download the topics webpage and create a BeautifulSoup object </a></li>
+<li class="toc-entry toc-h3"><a href="#Create-a-transform-function">Create a transform function </a>
+<ul>
+<li class="toc-entry toc-h4"><a href="#Get-topic-titles">Get topic titles </a></li>
+<li class="toc-entry toc-h4"><a href="#Get-topic-descriptions">Get topic descriptions </a></li>
+<li class="toc-entry toc-h4"><a href="#Get-topic-URLs">Get topic URLs </a></li>
+<li class="toc-entry toc-h4"><a href="#Save-all-information">Save all information </a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#Scraping-for-top-30-repos-for-each-topic">Scraping for top 30 repos for each topic </a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#Download-each-topic-page-and-create-a-BeautifulSoup-Object">Download each topic page and create a BeautifulSoup Object </a></li>
+<li class="toc-entry toc-h3"><a href="#Transform-the-topic-Beautiful-Object">Transform the topic Beautiful Object </a>
+<ul>
+<li class="toc-entry toc-h4"><a href="#Get-all-the-required-information-about-a-repository">Get all the required information about a repository </a></li>
+<li class="toc-entry toc-h4"><a href="#Grab-the-information-from-top-30-repos-under-a-topic.">Grab the information from top 30 repos under a topic. </a></li>
+<li class="toc-entry toc-h4"><a href="#Save-topic-file">Save topic file </a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#Putting-it-all-together">Putting it all together </a></li>
+<li class="toc-entry toc-h2"><a href="#Summary-and-Conclusion">Summary and Conclusion </a></li>
+</ul>
+</li>
+</ul><!--
+#################################################
+### THIS FILE WAS AUTOGENERATED! DO NOT EDIT! ###
+#################################################
+# file to edit: _notebooks/2021-08-29-Scrape_GitHub_topic_repos.ipynb
+-->
+
+<div class="container" id="notebook-container">
+        
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>GitHub is an increasingly popular programming resource used for code sharing. It's a social networking site for programmers that many companies and organizations use to facilitate project management and collaboration. According to <a href="https://octoverse.github.com/">statistics collected</a> in August 2021, it was the most prominent source code host, with over 60 million new repositories created in 2020 and boasting over 67 million total developers.</p>
+<p>All the projects on Github are stored as repositories. These repositories can get upvotes which are stored as stars. The stars that a repository gets can give us a guage of how popular the repository is. We can further filter all the repositores on GitHub by the topic they ascribe to. The list of topics is available <a href="https://github.com/topics">here</a>.</p>
+<p>Thus, we'll scrape GitHub for the top repocistories on each topic and then save that to a csv file for future use. In order to do this, we'll use the following tools:</p>
+<ul>
+<li>Python as the programming language</li>
+<li>Requests library for downloading the webpage contents</li>
+<li>BeautifulSoup library for finding and accessing the relevant information from the downloaded webpage.</li>
+<li>Pandas library for saving the accessed information to a csv file.</li>
+</ul>
+<ul>
+<li>Introduction about GitHub and the problem statement</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Here are the steps we'll follow:</p>
+<ul>
+<li>We're going to scrape <a href="https://github.com/topics">https://github.com/topics</a>
+</li>
+<li>We'll get a list of topics. For each topic, we'll get topic title, topic page URL and topic description</li>
+<li>For each topic, we'll get the top 30 repositories in the topic from the topic page</li>
+<li>For each repository, we'll grab the repo name, username, stars and repo URL</li>
+<li>For each topic we'll create a CSV file in the following format:</li>
+</ul>
+
+<pre><code>Repo Name,Username,Stars,Repo URL
+three.js,mrdoob,69700,https://github.com/mrdoob/three.js
+libgdx,libgdx,18300,https://github.com/libgdx/libgdx</code></pre>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="Setup">
+<a class="anchor" href="#Setup" aria-hidden="true"><span class="octicon octicon-link"></span></a>Setup<a class="anchor-link" href="#Setup"> </a>
+</h1>
+<p>Import the required libraries</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">requests</span>
+<span class="kn">from</span> <span class="nn">bs4</span> <span class="kn">import</span> <span class="n">BeautifulSoup</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Set up URLs and the user-agent.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">topics_url</span> <span class="o">=</span> <span class="s2">"https://github.com/topics"</span>
+<span class="n">base_url</span> <span class="o">=</span> <span class="s1">'https://github.com'</span>
+
+<span class="n">header</span> <span class="o">=</span> <span class="p">{</span><span class="s2">"User-Agent"</span><span class="p">:</span> <span class="s2">"Mozilla/5.0"</span><span class="p">}</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Create variables to store scraped information.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">topic_titles</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">topic_desc</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">topic_URL</span> <span class="o">=</span> <span class="p">[]</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Scrape-the-list-of-topics.">
+<a class="anchor" href="#Scrape-the-list-of-topics." aria-hidden="true"><span class="octicon octicon-link"></span></a>Scrape the list of topics.<a class="anchor-link" href="#Scrape-the-list-of-topics."> </a>
+</h2>
+<h3 id="Download-the-topics-webpage-and-create-a-BeautifulSoup-object">
+<a class="anchor" href="#Download-the-topics-webpage-and-create-a-BeautifulSoup-object" aria-hidden="true"><span class="octicon octicon-link"></span></a>Download the topics webpage and create a BeautifulSoup object<a class="anchor-link" href="#Download-the-topics-webpage-and-create-a-BeautifulSoup-object"> </a>
+</h3>
+<p>Let's write a function to download the page.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">get_soup</span><span class="p">(</span><span class="n">url</span><span class="p">):</span>
+    <span class="sd">'''</span>
+<span class="sd">    This function will download the webpage for the url supplied as argument</span>
+<span class="sd">    and return the BeautifulSoup object for the webpage which can be used to </span>
+<span class="sd">    grab required information for the webpage.</span>
+<span class="sd">    '''</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="s2">"html.parser"</span><span class="p">,</span> <span class="n">headers</span> <span class="o">=</span> <span class="n">header</span><span class="p">)</span>
+    
+    <span class="k">if</span> <span class="n">response</span><span class="o">.</span><span class="n">status_code</span> <span class="o">!=</span> <span class="mi">200</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s1">'Failed to load page </span><span class="si">{}</span><span class="s1">'</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">url</span><span class="p">))</span>
+        
+    <span class="n">soup</span> <span class="o">=</span> <span class="n">BeautifulSoup</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">text</span><span class="p">)</span>
+    
+    <span class="k">return</span> <span class="n">soup</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Example</span>
+<span class="n">soup</span> <span class="o">=</span> <span class="n">get_soup</span><span class="p">(</span><span class="n">topics_url</span><span class="p">)</span>
+<span class="nb">type</span><span class="p">(</span><span class="n">soup</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>bs4.BeautifulSoup</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Create-a-transform-function">
+<a class="anchor" href="#Create-a-transform-function" aria-hidden="true"><span class="octicon octicon-link"></span></a>Create a transform function<a class="anchor-link" href="#Create-a-transform-function"> </a>
+</h3>
+<p>Let's create some helper functions to parse information from the page.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="Get-topic-titles">
+<a class="anchor" href="#Get-topic-titles" aria-hidden="true"><span class="octicon octicon-link"></span></a>Get topic titles<a class="anchor-link" href="#Get-topic-titles"> </a>
+</h4>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>To get topic titles, we can pick <code>p</code> tags with the <code>class</code> "f3 lh-condensed mb-0 mt-1 Link--primary"</p>
+<div style="max-width:800px;margin-left: auto; margin-left: 0;">
+
+![My Image alt text](https://i.imgur.com/OnzIdyP.png)
+</div>
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># finding all topic titles</span>
+<span class="k">def</span> <span class="nf">get_topic_titles</span><span class="p">(</span><span class="n">soup</span><span class="p">):</span>
+    <span class="n">selection_class</span> <span class="o">=</span> <span class="s1">'f3 lh-condensed mb-0 mt-1 Link--primary'</span>
+    <span class="n">topic_title_tags</span> <span class="o">=</span> <span class="n">soup</span><span class="o">.</span><span class="n">find_all</span><span class="p">(</span><span class="s1">'p'</span><span class="p">,</span> <span class="p">{</span><span class="s1">'class'</span><span class="p">:</span> <span class="n">selection_class</span><span class="p">})</span>
+    <span class="n">topic_titles</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">tag</span> <span class="ow">in</span> <span class="n">topic_title_tags</span><span class="p">:</span>
+        <span class="n">topic_titles</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">tag</span><span class="o">.</span><span class="n">text</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">topic_titles</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Example</span>
+<span class="n">titles</span> <span class="o">=</span> <span class="n">get_topic_titles</span><span class="p">(</span><span class="n">soup</span><span class="p">)</span>
+
+<span class="nb">len</span><span class="p">(</span><span class="n">titles</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>30</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">titles</span><span class="p">[:</span><span class="mi">5</span><span class="p">]</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>['3D', 'Ajax', 'Algorithm', 'Amp', 'Android']</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>This is the list of topics on page number 1. We will today scrape information for topics only on this page. In the future, we can scrape information from other pages as well by changing the page number in the url.
+Now we'll find the topic descriptions similarly.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="Get-topic-descriptions">
+<a class="anchor" href="#Get-topic-descriptions" aria-hidden="true"><span class="octicon octicon-link"></span></a>Get topic descriptions<a class="anchor-link" href="#Get-topic-descriptions"> </a>
+</h4>
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># finding all topics descriptions</span>
+<span class="k">def</span> <span class="nf">get_topic_descs</span><span class="p">(</span><span class="n">soup</span><span class="p">):</span>
+    <span class="n">desc_selector</span> <span class="o">=</span> <span class="s1">'f5 color-fg-muted mb-0 mt-1'</span>
+    <span class="n">topic_desc_tags</span> <span class="o">=</span> <span class="n">soup</span><span class="o">.</span><span class="n">find_all</span><span class="p">(</span><span class="s1">'p'</span><span class="p">,</span> <span class="p">{</span><span class="s1">'class'</span><span class="p">:</span> <span class="n">desc_selector</span><span class="p">})</span>
+    <span class="n">topic_descs</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">tag</span> <span class="ow">in</span> <span class="n">topic_desc_tags</span><span class="p">:</span>
+        <span class="n">topic_descs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">tag</span><span class="o">.</span><span class="n">text</span><span class="o">.</span><span class="n">strip</span><span class="p">())</span>
+    <span class="k">return</span> <span class="n">topic_descs</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Example</span>
+<span class="n">topics_descs</span> <span class="o">=</span> <span class="n">get_topic_descs</span><span class="p">(</span><span class="n">soup</span><span class="p">)</span>
+
+<span class="nb">len</span><span class="p">(</span><span class="n">topics_descs</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>30</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">topics_descs</span><span class="p">[:</span><span class="mi">5</span><span class="p">]</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>['3D modeling is the process of virtually developing the surface and structure of a 3D object.',
+ 'Ajax is a technique for creating interactive web applications.',
+ 'Algorithms are self-contained sequences that carry out a variety of tasks.',
+ 'Amp is a non-blocking concurrency library for PHP.',
+ 'Android is an operating system built by Google designed for mobile devices.']</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Similary, we'll find the topic urls.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="Get-topic-URLs">
+<a class="anchor" href="#Get-topic-URLs" aria-hidden="true"><span class="octicon octicon-link"></span></a>Get topic URLs<a class="anchor-link" href="#Get-topic-URLs"> </a>
+</h4>
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">get_topic_urls</span><span class="p">(</span><span class="n">soup</span><span class="p">):</span>
+    <span class="n">topic_link_tags</span> <span class="o">=</span> <span class="n">soup</span><span class="o">.</span><span class="n">find_all</span><span class="p">(</span><span class="s1">'a'</span><span class="p">,</span> <span class="p">{</span><span class="s1">'class'</span><span class="p">:</span> <span class="s1">'no-underline flex-1 d-flex flex-column'</span><span class="p">})</span>
+    <span class="n">topic_urls</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">tag</span> <span class="ow">in</span> <span class="n">topic_link_tags</span><span class="p">:</span>
+        <span class="n">topic_urls</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">base_url</span> <span class="o">+</span> <span class="n">tag</span><span class="p">[</span><span class="s1">'href'</span><span class="p">])</span>
+    <span class="k">return</span> <span class="n">topic_urls</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Example</span>
+<span class="n">topic_urls</span> <span class="o">=</span> <span class="n">get_topic_urls</span><span class="p">(</span><span class="n">soup</span><span class="p">)</span>
+<span class="nb">len</span><span class="p">(</span><span class="n">topic_urls</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>30</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">topic_urls</span><span class="p">[:</span><span class="mi">5</span><span class="p">]</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>['https://github.com/topics/3d',
+ 'https://github.com/topics/ajax',
+ 'https://github.com/topics/algorithm',
+ 'https://github.com/topics/amphp',
+ 'https://github.com/topics/android']</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="Save-all-information">
+<a class="anchor" href="#Save-all-information" aria-hidden="true"><span class="octicon octicon-link"></span></a>Save all information<a class="anchor-link" href="#Save-all-information"> </a>
+</h4>
+<p>We'll put together all this information into a single function and then save the scraped information into a pandas DataFrame.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">scrape_topics</span><span class="p">():</span>
+    <span class="n">topics_url</span> <span class="o">=</span> <span class="s1">'https://github.com/topics'</span>
+    <span class="n">soup</span> <span class="o">=</span> <span class="n">get_soup</span><span class="p">(</span><span class="n">topics_url</span><span class="p">)</span>
+    <span class="n">topics_dict</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s1">'Title'</span><span class="p">:</span> <span class="n">get_topic_titles</span><span class="p">(</span><span class="n">soup</span><span class="p">),</span>
+        <span class="s1">'Description'</span><span class="p">:</span> <span class="n">get_topic_descs</span><span class="p">(</span><span class="n">soup</span><span class="p">),</span>
+        <span class="s1">'URL'</span><span class="p">:</span> <span class="n">get_topic_urls</span><span class="p">(</span><span class="n">soup</span><span class="p">)</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">topics_dict</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">topics_df</span> <span class="o">=</span> <span class="n">scrape_topics</span><span class="p">()</span>
+
+<span class="n">topics_df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Title</th>
+      <th>Description</th>
+      <th>URL</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>3D</td>
+      <td>3D modeling is the process of virtually develo...</td>
+      <td>https://github.com/topics/3d</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>Ajax</td>
+      <td>Ajax is a technique for creating interactive w...</td>
+      <td>https://github.com/topics/ajax</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>Algorithm</td>
+      <td>Algorithms are self-contained sequences that c...</td>
+      <td>https://github.com/topics/algorithm</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>Amp</td>
+      <td>Amp is a non-blocking concurrency library for ...</td>
+      <td>https://github.com/topics/amphp</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>Android</td>
+      <td>Android is an operating system built by Google...</td>
+      <td>https://github.com/topics/android</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Scraping-for-top-30-repos-for-each-topic">
+<a class="anchor" href="#Scraping-for-top-30-repos-for-each-topic" aria-hidden="true"><span class="octicon octicon-link"></span></a>Scraping for top 30 repos for each topic<a class="anchor-link" href="#Scraping-for-top-30-repos-for-each-topic"> </a>
+</h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Now that we have the topics with their titles, descriptions and url, we can access each topic url to grab information about the top 30 repositories from that topic individually and then save the scraped information for each topic as a separate csv file.</p>
+<p>Each topic page looks like this</p>
+<p><img src="https://i.imgur.com/pOu2UrI.jpeg" alt="fdg"></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>From this page, we'll grab information about the top 30 repositories based on their popularity as measured by the number of stars. The repositories are already sorted by popularity by default, so we can grab 30 of them from the first page on each topic itself. 
+We'll begin by writing a function to download each topic page and create its BeautifulSoup object.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Download-each-topic-page-and-create-a-BeautifulSoup-Object">
+<a class="anchor" href="#Download-each-topic-page-and-create-a-BeautifulSoup-Object" aria-hidden="true"><span class="octicon octicon-link"></span></a>Download each topic page and create a BeautifulSoup Object<a class="anchor-link" href="#Download-each-topic-page-and-create-a-BeautifulSoup-Object"> </a>
+</h3>
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">get_topic_page</span><span class="p">(</span><span class="n">topic_url</span><span class="p">):</span>
+    <span class="c1"># Download the page</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">topic_url</span><span class="p">,</span> <span class="s2">"html.parser"</span><span class="p">,</span> <span class="n">headers</span> <span class="o">=</span> <span class="n">header</span><span class="p">)</span>
+    <span class="c1"># Check successful response</span>
+    <span class="k">if</span> <span class="n">response</span><span class="o">.</span><span class="n">status_code</span> <span class="o">!=</span> <span class="mi">200</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s1">'Failed to load page </span><span class="si">{}</span><span class="s1">'</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">topic_url</span><span class="p">))</span>
+    <span class="c1"># Parse using Beautiful soup</span>
+    <span class="n">topic_soup</span> <span class="o">=</span> <span class="n">BeautifulSoup</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">text</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">topic_soup</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">page</span> <span class="o">=</span> <span class="n">get_topic_page</span><span class="p">(</span><span class="s1">'https://github.com/topics/3d'</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Transform-the-topic-Beautiful-Object">
+<a class="anchor" href="#Transform-the-topic-Beautiful-Object" aria-hidden="true"><span class="octicon octicon-link"></span></a>Transform the topic Beautiful Object<a class="anchor-link" href="#Transform-the-topic-Beautiful-Object"> </a>
+</h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="Get-all-the-required-information-about-a-repository">
+<a class="anchor" href="#Get-all-the-required-information-about-a-repository" aria-hidden="true"><span class="octicon octicon-link"></span></a>Get all the required information about a repository<a class="anchor-link" href="#Get-all-the-required-information-about-a-repository"> </a>
+</h4>
+<p>All the information that we need about a repository is given under a <code>div</code> tag with class <code>d-flex flex-justify-between my-3</code>. So we will make a function which takes in the content of each repository from these tags as arguement. It will then grab and return the required information from the content.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">get_repo_info</span><span class="p">(</span><span class="n">repo</span><span class="p">):</span>
+    <span class="c1"># returns all the required info about a repository</span>
+    <span class="n">info</span> <span class="o">=</span> <span class="n">repo</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s1">'h3'</span><span class="p">,</span> <span class="p">{</span><span class="s1">'class'</span><span class="p">:</span> <span class="s1">'f3 color-fg-muted text-normal lh-condensed'</span><span class="p">})</span><span class="o">.</span><span class="n">find_all</span><span class="p">(</span><span class="s1">'a'</span><span class="p">)</span>
+    <span class="n">username</span> <span class="o">=</span> <span class="n">info</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">text</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+    <span class="n">repo_name</span> <span class="o">=</span> <span class="n">info</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">text</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+    <span class="n">repo_url</span> <span class="o">=</span>  <span class="n">base_url</span> <span class="o">+</span> <span class="n">info</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s1">'href'</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+    <span class="n">stars</span> <span class="o">=</span> <span class="n">repo</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s1">'span'</span><span class="p">,</span> <span class="p">{</span><span class="s1">'id'</span><span class="p">:</span> <span class="s1">'repo-stars-counter-star'</span><span class="p">})</span><span class="o">.</span><span class="n">text</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">username</span><span class="p">,</span> <span class="n">repo_name</span><span class="p">,</span> <span class="n">stars</span><span class="p">,</span> <span class="n">repo_url</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Example</span>
+<span class="n">repo_contents</span> <span class="o">=</span> <span class="n">page</span><span class="o">.</span><span class="n">find_all</span><span class="p">(</span><span class="s1">'div'</span><span class="p">,</span> <span class="p">{</span><span class="s1">'class'</span><span class="p">:</span> <span class="s1">'d-flex flex-justify-between my-3'</span><span class="p">})</span>
+
+<span class="n">get_repo_info</span><span class="p">(</span><span class="n">repo_contents</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>('mrdoob', 'three.js', '80.6k', 'https://github.com/mrdoob')</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Here we can see that the function returns the information about the first repository from the topic page. The top repository in this case is 'three.js' with 80.6k stars.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="Grab-the-information-from-top-30-repos-under-a-topic.">
+<a class="anchor" href="#Grab-the-information-from-top-30-repos-under-a-topic." aria-hidden="true"><span class="octicon octicon-link"></span></a>Grab the information from top 30 repos under a topic.<a class="anchor-link" href="#Grab-the-information-from-top-30-repos-under-a-topic."> </a>
+</h4>
+<p>Now, we'll write a function to grab information about repositories within a topic. It will take in a topic soup and return a pandas DataFrame on the top 30 repos in that topic.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">get_topic_repos</span><span class="p">(</span><span class="n">topic_soup</span><span class="p">):</span>
+
+    <span class="n">div_selection_class</span> <span class="o">=</span> <span class="s1">'d-flex flex-justify-between my-3'</span>
+    <span class="n">repo_tags</span> <span class="o">=</span> <span class="n">topic_soup</span><span class="o">.</span><span class="n">find_all</span><span class="p">(</span><span class="s1">'div'</span><span class="p">,</span> <span class="p">{</span><span class="s1">'class'</span><span class="p">:</span> <span class="n">div_selection_class</span><span class="p">})</span>
+
+    <span class="n">topic_repos_dict</span> <span class="o">=</span> <span class="p">{</span> <span class="s1">'username'</span><span class="p">:</span> <span class="p">[],</span> <span class="s1">'repo_name'</span><span class="p">:</span> <span class="p">[],</span> <span class="s1">'stars'</span><span class="p">:</span> <span class="p">[],</span><span class="s1">'repo_url'</span><span class="p">:</span> <span class="p">[]}</span>
+
+    <span class="c1"># Get repo info</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">repo_tags</span><span class="p">)):</span>
+        <span class="n">username</span><span class="p">,</span> <span class="n">repo_name</span><span class="p">,</span> <span class="n">stars</span><span class="p">,</span> <span class="n">repo_url</span> <span class="o">=</span> <span class="n">get_repo_info</span><span class="p">(</span><span class="n">repo_tags</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+        <span class="n">topic_repos_dict</span><span class="p">[</span><span class="s1">'username'</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">username</span><span class="p">)</span>
+        <span class="n">topic_repos_dict</span><span class="p">[</span><span class="s1">'repo_name'</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">repo_name</span><span class="p">)</span>
+        <span class="n">topic_repos_dict</span><span class="p">[</span><span class="s1">'stars'</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">stars</span><span class="p">)</span>
+        <span class="n">topic_repos_dict</span><span class="p">[</span><span class="s1">'repo_url'</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">repo_url</span><span class="p">)</span>
+        
+    <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">topic_repos_dict</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Example</span>
+<span class="n">get_topic_repos</span><span class="p">(</span><span class="n">page</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>username</th>
+      <th>repo_name</th>
+      <th>stars</th>
+      <th>repo_url</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>mrdoob</td>
+      <td>three.js</td>
+      <td>80.6k</td>
+      <td>https://github.com/mrdoob</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>libgdx</td>
+      <td>libgdx</td>
+      <td>19.8k</td>
+      <td>https://github.com/libgdx</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>pmndrs</td>
+      <td>react-three-fiber</td>
+      <td>17.4k</td>
+      <td>https://github.com/pmndrs</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>BabylonJS</td>
+      <td>Babylon.js</td>
+      <td>16.2k</td>
+      <td>https://github.com/BabylonJS</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>aframevr</td>
+      <td>aframe</td>
+      <td>14k</td>
+      <td>https://github.com/aframevr</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>ssloy</td>
+      <td>tinyrenderer</td>
+      <td>13.3k</td>
+      <td>https://github.com/ssloy</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>lettier</td>
+      <td>3d-game-shaders-for-beginners</td>
+      <td>12.5k</td>
+      <td>https://github.com/lettier</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>FreeCAD</td>
+      <td>FreeCAD</td>
+      <td>11k</td>
+      <td>https://github.com/FreeCAD</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>metafizzy</td>
+      <td>zdog</td>
+      <td>9.1k</td>
+      <td>https://github.com/metafizzy</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>CesiumGS</td>
+      <td>cesium</td>
+      <td>8.5k</td>
+      <td>https://github.com/CesiumGS</td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>timzhang642</td>
+      <td>3D-Machine-Learning</td>
+      <td>7.8k</td>
+      <td>https://github.com/timzhang642</td>
+    </tr>
+    <tr>
+      <th>11</th>
+      <td>a1studmuffin</td>
+      <td>SpaceshipGenerator</td>
+      <td>7.1k</td>
+      <td>https://github.com/a1studmuffin</td>
+    </tr>
+    <tr>
+      <th>12</th>
+      <td>isl-org</td>
+      <td>Open3D</td>
+      <td>6.4k</td>
+      <td>https://github.com/isl-org</td>
+    </tr>
+    <tr>
+      <th>13</th>
+      <td>blender</td>
+      <td>blender</td>
+      <td>5.2k</td>
+      <td>https://github.com/blender</td>
+    </tr>
+    <tr>
+      <th>14</th>
+      <td>domlysz</td>
+      <td>BlenderGIS</td>
+      <td>5k</td>
+      <td>https://github.com/domlysz</td>
+    </tr>
+    <tr>
+      <th>15</th>
+      <td>spritejs</td>
+      <td>spritejs</td>
+      <td>4.8k</td>
+      <td>https://github.com/spritejs</td>
+    </tr>
+    <tr>
+      <th>16</th>
+      <td>openscad</td>
+      <td>openscad</td>
+      <td>4.7k</td>
+      <td>https://github.com/openscad</td>
+    </tr>
+    <tr>
+      <th>17</th>
+      <td>tensorspace-team</td>
+      <td>tensorspace</td>
+      <td>4.6k</td>
+      <td>https://github.com/tensorspace-team</td>
+    </tr>
+    <tr>
+      <th>18</th>
+      <td>jagenjo</td>
+      <td>webglstudio.js</td>
+      <td>4.6k</td>
+      <td>https://github.com/jagenjo</td>
+    </tr>
+    <tr>
+      <th>19</th>
+      <td>YadiraF</td>
+      <td>PRNet</td>
+      <td>4.6k</td>
+      <td>https://github.com/YadiraF</td>
+    </tr>
+    <tr>
+      <th>20</th>
+      <td>AaronJackson</td>
+      <td>vrn</td>
+      <td>4.4k</td>
+      <td>https://github.com/AaronJackson</td>
+    </tr>
+    <tr>
+      <th>21</th>
+      <td>google</td>
+      <td>model-viewer</td>
+      <td>4.1k</td>
+      <td>https://github.com/google</td>
+    </tr>
+    <tr>
+      <th>22</th>
+      <td>ssloy</td>
+      <td>tinyraytracer</td>
+      <td>4.1k</td>
+      <td>https://github.com/ssloy</td>
+    </tr>
+    <tr>
+      <th>23</th>
+      <td>mosra</td>
+      <td>magnum</td>
+      <td>3.9k</td>
+      <td>https://github.com/mosra</td>
+    </tr>
+    <tr>
+      <th>24</th>
+      <td>FyroxEngine</td>
+      <td>Fyrox</td>
+      <td>3.5k</td>
+      <td>https://github.com/FyroxEngine</td>
+    </tr>
+    <tr>
+      <th>25</th>
+      <td>gfxfundamentals</td>
+      <td>webgl-fundamentals</td>
+      <td>3.5k</td>
+      <td>https://github.com/gfxfundamentals</td>
+    </tr>
+    <tr>
+      <th>26</th>
+      <td>tengbao</td>
+      <td>vanta</td>
+      <td>3.3k</td>
+      <td>https://github.com/tengbao</td>
+    </tr>
+    <tr>
+      <th>27</th>
+      <td>cleardusk</td>
+      <td>3DDFA</td>
+      <td>3.2k</td>
+      <td>https://github.com/cleardusk</td>
+    </tr>
+    <tr>
+      <th>28</th>
+      <td>jasonlong</td>
+      <td>isometric-contributions</td>
+      <td>3.1k</td>
+      <td>https://github.com/jasonlong</td>
+    </tr>
+    <tr>
+      <th>29</th>
+      <td>cnr-isti-vclab</td>
+      <td>meshlab</td>
+      <td>2.9k</td>
+      <td>https://github.com/cnr-isti-vclab</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>As we can see, the function has returned a pandas DataFrame of the top 30 repos from the topic '3d'. Now, we'll make function to save this DataFrame as a csv file if we haven't already created a file on that topic.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="Save-topic-file">
+<a class="anchor" href="#Save-topic-file" aria-hidden="true"><span class="octicon octicon-link"></span></a>Save topic file<a class="anchor-link" href="#Save-topic-file"> </a>
+</h4>
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">scrape_topic</span><span class="p">(</span><span class="n">topic_url</span><span class="p">,</span> <span class="n">path</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">"The file </span><span class="si">{}</span><span class="s2"> already exists. Skipping..."</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">path</span><span class="p">))</span>
+        <span class="k">return</span>
+    <span class="n">topic_df</span> <span class="o">=</span> <span class="n">get_topic_repos</span><span class="p">(</span><span class="n">get_topic_page</span><span class="p">(</span><span class="n">topic_url</span><span class="p">))</span>
+    <span class="n">topic_df</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Putting-it-all-together">
+<a class="anchor" href="#Putting-it-all-together" aria-hidden="true"><span class="octicon octicon-link"></span></a>Putting it all together<a class="anchor-link" href="#Putting-it-all-together"> </a>
+</h2>
+<ul>
+<li>We have a funciton to get the list of topics</li>
+<li>We have a function to create a CSV file for scraped repos from a topics page</li>
+<li>Let's create a function to put them together</li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">scrape_topics_repos</span><span class="p">():</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">'Scraping list of topics'</span><span class="p">)</span>
+    <span class="n">topics_df</span> <span class="o">=</span> <span class="n">scrape_topics</span><span class="p">()</span>
+    
+    <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="s1">'data'</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">index</span><span class="p">,</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">topics_df</span><span class="o">.</span><span class="n">iterrows</span><span class="p">():</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Scraping top repositories for </span><span class="si">{</span><span class="n">row</span><span class="p">[</span><span class="s1">'Title'</span><span class="p">]</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+        <span class="n">scrape_topic</span><span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="s1">'URL'</span><span class="p">],</span> <span class="sa">f</span><span class="s2">"data/</span><span class="si">{</span><span class="n">row</span><span class="p">[</span><span class="s1">'Title'</span><span class="p">]</span><span class="si">}</span><span class="s2">.csv"</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Let's run it to scrape the top repos for the all the topics on the first page of <a href="https://github.com/topics">https://github.com/topics</a></p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">scrape_topics_repos</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Scraping list of topics
+Scraping top repositories for 3D
+Scraping top repositories for Ajax
+Scraping top repositories for Algorithm
+Scraping top repositories for Amp
+Scraping top repositories for Android
+Scraping top repositories for Angular
+Scraping top repositories for Ansible
+Scraping top repositories for API
+Scraping top repositories for Arduino
+Scraping top repositories for ASP.NET
+Scraping top repositories for Atom
+Scraping top repositories for Awesome Lists
+Scraping top repositories for Amazon Web Services
+Scraping top repositories for Azure
+Scraping top repositories for Babel
+Scraping top repositories for Bash
+Scraping top repositories for Bitcoin
+Scraping top repositories for Bootstrap
+Scraping top repositories for Bot
+Scraping top repositories for C
+Scraping top repositories for Chrome
+Scraping top repositories for Chrome extension
+Scraping top repositories for Command line interface
+Scraping top repositories for Clojure
+Scraping top repositories for Code quality
+Scraping top repositories for Code review
+Scraping top repositories for Compiler
+Scraping top repositories for Continuous integration
+Scraping top repositories for COVID-19
+Scraping top repositories for C++
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Summary-and-Conclusion">
+<a class="anchor" href="#Summary-and-Conclusion" aria-hidden="true"><span class="octicon octicon-link"></span></a>Summary and Conclusion<a class="anchor-link" href="#Summary-and-Conclusion"> </a>
+</h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>As we can see, we have successfully scraped top 30 repositories for 30 topics. And we have saved the information on these top 30 repositories as a csv file for each topic separately. The information that we have scraped for each repository is its title, owner username, star count and its url.</p>
+<p>We have scraped repositories for only 30 topics today. This was the number of topics available on the page 1 of <a href="https://github.com/topics">https://github.com/topics</a>. But it is easy top scrape more topics. What we just need to do is change the page number in the url <a href="https://github.com/topics?page=%7Bi%7D">https://github.com/topics?page={i}</a> where 'i' is the page number. This way, we can scrape info on top repos for all the topics of GitHub.</p>
+
+</div>
+</div>
+</div>
+</div>
+
+
+
+  </div><a class="u-url" href="/blogs/2021/08/29/Scrape_GitHub_topic_repos.html" hidden></a>
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/blogs/"></data>
+
+  <div class="wrapper">
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col">
+        <p class="feed-subscribe">
+          <a href="/blogs/feed.xml">
+            <svg class="svg-icon orange">
+              <use xlink:href="/blogs/assets/minima-social-icons.svg#rss"></use>
+            </svg><span>Subscribe</span>
+          </a>
+        </p>
+      </div>
+      <div class="footer-col">
+        <p>Projects</p>
+      </div>
+    </div>
+
+    <div class="social-links"><ul class="social-media-list"><li><a rel="me" href="https://twitter.com/ncitshubham" target="_blank" title="ncitshubham"><svg class="svg-icon grey"><use xlink:href="/blogs/assets/minima-social-icons.svg#twitter"></use></svg></a></li></ul>
+</div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>
